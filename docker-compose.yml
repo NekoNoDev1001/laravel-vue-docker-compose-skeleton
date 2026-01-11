@@ -1,0 +1,11 @@
+name: bokuno-project
+
+# Define la red compartida aquí
+networks:
+  bokuno-network:
+    driver: bridge
+
+# Incluye los sub-proyectos
+include:
+  - Auth/docker-compose.yml
+  - Frontend/docker-compose.yml

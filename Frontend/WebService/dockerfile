@@ -1,0 +1,27 @@
+FROM node:lts-alpine
+
+RUN npm install -g http-server
+
+# Seteamos el directorio de trabajo
+WORKDIR /app
+
+# COPIA EL ARCHIVO DESDE LA SUB-CARPETA SRC
+# El primer parámetro es el origen (en tu PC), el segundo el destino (contenedor)
+COPY package*.json ./
+
+# Verificamos qué hay en la carpeta para estar seguros (esto saldrá en el log)
+RUN ls -la
+
+# Instalamos las dependencias
+RUN npm install
+
+# Copiamos el resto de los archivos
+COPY . .
+
+# Entramos a la carpeta donde está el código real para compilar
+RUN npm run build
+
+EXPOSE 8080
+
+# Servimos la carpeta dist (ajusta la ruta si tu build la saca a otro lado)
+CMD [ "http-server", "dist" ]

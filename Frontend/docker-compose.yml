@@ -1,0 +1,21 @@
+name: frontend-service
+
+services:
+  frontend:
+    container_name: frontend-app
+    build:
+      context: ./WebService
+      dockerfile: dockerfile
+    ports:
+      # IZQUIERDA: Puerto de tu PC (Navegador)
+      # DERECHA: Puerto interno donde corre tu app (ej: 3000 para CRA, 5173 Vite)
+      - "8080:8080" 
+    volumes:
+      - ./WebService:/app
+      - /app/node_modules
+    networks:
+      - bokuno-network
+
+networks:
+  bokuno-network:
+    external: true
